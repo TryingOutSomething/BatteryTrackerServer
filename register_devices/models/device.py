@@ -5,7 +5,7 @@ from utils.response import ServiceCode
 
 
 class Device(BaseModel):
-    device_imei: str
+    device_id: str
     device_name: str
     battery_level: str
 

@@ -5,7 +5,7 @@ from utils.response import ServiceCode
 
 
 class BatteryInfo(BaseModel):
-    device_imei: str
+    device_id: str
     current_battery_level: str
 
     @validator('*')

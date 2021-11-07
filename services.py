@@ -1,17 +1,17 @@
 from typing import Optional
 
-from utils.exceptions import KeyExistsError
 from battery_info.models.battery_level import BatteryInfo
 from register_devices.models.device import Device, UnregisterDevice
+from utils.exceptions import KeyExistsError
 
 _registered_devices = {}
 
 
 def register_device(device: Device) -> None:
-    if _device_exists(device.device_imei):
+    if _device_exists(device.device_id):
         raise KeyExistsError('Key already exists')
 
-    imei = device.device_imei
+    imei = device.device_id
     name = device.device_name
     battery_level = device.battery_level
 
@@ -30,10 +30,10 @@ def _device_exists(imei_number) -> bool:
 
 
 def update_device_battery_info(battery_info: BatteryInfo) -> None:
-    if not _device_exists(battery_info.device_imei):
+    if not _device_exists(battery_info.device_id):
         raise KeyExistsError('key already exists')
 
-    imei = battery_info.device_imei
+    imei = battery_info.device_id
     battery_level = battery_info.current_battery_level
 
     _registered_devices[imei] = battery_level
