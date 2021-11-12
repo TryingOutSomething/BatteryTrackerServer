@@ -15,7 +15,7 @@ def register_device_service(device: Device):
     except KeyExistsError:
         raise HTTPException(status_code=400,
                             detail=build_response(ServiceCode.REGISTER_FAILURE,
-                                                  'Device Already Exists!'))
+                                                  'Device Already Exists!').dict())
 
     return build_response(ServiceCode.REGISTER_SUCCESS)
 
@@ -27,6 +27,6 @@ def unregister_device_service(device: UnregisterDevice):
     if device_info is None:
         raise HTTPException(status_code=400,
                             detail=build_response(ServiceCode.UNREGISTER_FAILURE,
-                                                  'Device Does Not Exists!'))
+                                                  'Device Does Not Exists!').dict())
 
     return build_response(ServiceCode.UNREGISTER_SUCCESS)

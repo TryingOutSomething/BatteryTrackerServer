@@ -15,6 +15,6 @@ def receive_battery_info(battery_info: BatteryInfo):
     except KeyExistsError:
         raise HTTPException(status_code=400,
                             detail=build_response(ServiceCode.BATTERY_LEVEL_ERROR,
-                                                  'Device Does Not Exists!'))
+                                                  'Device Does Not Exists!').dict())
 
     return build_response(ServiceCode.BATTERY_LEVEL_RECEIVED)
