@@ -4,7 +4,7 @@ from utils import request_payload_validators as req_validators
 from utils.response import ServiceCode
 
 
-class BatteryInfo(BaseModel):
+class DeviceBatteryInfo(BaseModel):
     device_id: str
     current_battery_level: str
 

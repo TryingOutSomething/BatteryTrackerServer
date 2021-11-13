@@ -27,4 +27,4 @@ class Device(BaseModel):
 
 
 class UnregisterDevice(BaseModel):
-    device_imei: str
+    device_id: str

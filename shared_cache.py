@@ -1,7 +1,7 @@
 import threading
 from typing import Dict, Optional
 
-from battery_info.models.battery_level import BatteryInfo
+from device_battery_info.models.battery_level import DeviceBatteryInfo
 from register_devices.models.device import Device, UnregisterDevice
 from utils.exceptions import KeyExistsError
 
@@ -33,10 +33,10 @@ def _device_exists(device_id: str) -> bool:
 
 def unregister_device(device: 'UnregisterDevice') -> Optional[Dict[str, str]]:
     with _lock:
-        return _registered_devices.pop(device.device_imei, None)
+        return _registered_devices.pop(device.device_id, None)
 
 
-def update_device_battery_info(device_battery_info: 'BatteryInfo') -> None:
+def update_device_battery_info(device_battery_info: 'DeviceBatteryInfo') -> None:
     with _lock:
         if not _device_exists(device_battery_info.device_id):
             raise KeyExistsError('Device does not exist in memory')

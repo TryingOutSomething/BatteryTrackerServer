@@ -5,7 +5,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
-from battery_info.endpoints import router as battery_info_router
+from device_battery_info.endpoints import router as battery_info_router
 from register_devices.endpoints import router as device_router
 from utils.response import build_response, ServiceCode
 
