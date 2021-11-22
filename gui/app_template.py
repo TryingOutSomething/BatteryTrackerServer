@@ -14,7 +14,6 @@ from PySide6.QtWidgets import (QGroupBox, QHBoxLayout, QLabel, QLineEdit, QPushB
                                QSpacerItem, QTableWidget, QTableWidgetItem, QVBoxLayout,
                                QWidget)
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -33,28 +32,18 @@ class Ui_MainWindow(object):
         self.devicesList.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         __qtablewidgetitem2 = QTableWidgetItem()
         self.devicesList.setHorizontalHeaderItem(2, __qtablewidgetitem2)
-        if (self.devicesList.rowCount() < 1):
-            self.devicesList.setRowCount(1)
-        __qtablewidgetitem3 = QTableWidgetItem()
-        __qtablewidgetitem3.setTextAlignment(Qt.AlignCenter);
-        self.devicesList.setItem(0, 0, __qtablewidgetitem3)
-        __qtablewidgetitem4 = QTableWidgetItem()
-        __qtablewidgetitem4.setTextAlignment(Qt.AlignCenter);
-        self.devicesList.setItem(0, 1, __qtablewidgetitem4)
-        __qtablewidgetitem5 = QTableWidgetItem()
-        self.devicesList.setItem(0, 2, __qtablewidgetitem5)
         self.devicesList.setObjectName(u"devicesList")
-        self.devicesList.setGeometry(QRect(0, 15, 960, 425))
+        self.devicesList.setGeometry(QRect(0, 20, 960, 420))
         self.devicesList.setAutoScroll(False)
         self.devicesList.setTabKeyNavigation(False)
         self.devicesList.setProperty("showDropIndicator", False)
         self.devicesList.setAlternatingRowColors(True)
         self.devicesList.setTextElideMode(Qt.ElideRight)
         self.devicesList.setCornerButtonEnabled(True)
-        self.devicesList.setRowCount(1)
+        self.devicesList.setRowCount(0)
         self.devicesList.setColumnCount(3)
         self.devicesList.horizontalHeader().setCascadingSectionResizes(False)
-        self.devicesList.horizontalHeader().setDefaultSectionSize(320)
+        self.devicesList.horizontalHeader().setDefaultSectionSize(319)
         self.layoutWidget = QWidget(MainWindow)
         self.layoutWidget.setObjectName(u"layoutWidget")
         self.layoutWidget.setGeometry(QRect(290, 20, 381, 60))
@@ -88,6 +77,7 @@ class Ui_MainWindow(object):
 
         self.inputContainer.addItem(self.horizontalSpacer)
 
+
         self.changeIntervalContainer.addLayout(self.inputContainer)
 
         self.changeIntervalButton = QPushButton(self.layoutWidget)
@@ -107,7 +97,6 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
-
     # setupUi
 
     def retranslateUi(self, MainWindow):
@@ -119,19 +108,11 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Battery Percentage", None));
         ___qtablewidgetitem2 = self.devicesList.horizontalHeaderItem(2)
         ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Percentage To Notify", None));
-
-        __sortingEnabled = self.devicesList.isSortingEnabled()
-        self.devicesList.setSortingEnabled(False)
-        ___qtablewidgetitem3 = self.devicesList.item(0, 0)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"test123", None));
-        ___qtablewidgetitem4 = self.devicesList.item(0, 1)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"50", None));
-        self.devicesList.setSortingEnabled(__sortingEnabled)
-
         self.refreshIntervalLabel.setText(
             QCoreApplication.translate("MainWindow", u"Refresh Interval (in seconds):", None))
         self.intervalInput.setText(QCoreApplication.translate("MainWindow", u"3", None))
         self.intervalInput.setPlaceholderText("")
         self.changeIntervalButton.setText(QCoreApplication.translate("MainWindow", u"Change Interval", None))
-        self.errorLabel.setText(QCoreApplication.translate("MainWindow", u"lorem ipsum", None))
+        self.errorLabel.setText("")
     # retranslateUi
+
