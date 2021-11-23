@@ -9,6 +9,14 @@ class Device(BaseModel):
     device_name: str
     battery_level: str
 
+    def __hash__(self):
+        return id(self)
+
+    def __eq__(self, other: 'Device'):
+        return self.device_id == other.device_id and \
+               self.device_name == other.device_name and \
+               self.battery_level == other.battery_level
+
     @validator('*')
     def empty_fields(cls, v):
         if req_validators.is_empty_field(v):

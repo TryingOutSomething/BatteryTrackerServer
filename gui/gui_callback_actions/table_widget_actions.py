@@ -55,6 +55,9 @@ def _get_new_registered_and_remove_unregistered_device(devices_list: QTableWidge
                                                        device_battery_to_notify_map: Dict[str, BatteryLevelToNotify]):
     registered_devices_dict: Dict[str, Device] = {}
 
+    if no_of_devices_registered_in_gui <= 0:
+        return registered_devices_dict
+
     for row_index in range(no_of_devices_registered_in_gui):
         device_id: str = table_row_id_device_map[row_index]
 
@@ -111,10 +114,12 @@ def _insert_new_registered_device_to_table(devices_list: QTableWidget, new_devic
     row_position = devices_list.rowCount()
     devices_list.insertRow(row_position)
 
-    devices_list.setItem(row_position, _DeviceTableRecord.DEVICE_NAME, new_device.device_name)
+    device_name_table_item = QTableWidgetItem(new_device.device_name)
+    devices_list.setItem(row_position, _DeviceTableRecord.DEVICE_NAME, device_name_table_item)
     _set_cell_as_immutable(devices_list.item(row_position, _DeviceTableRecord.DEVICE_NAME))
 
-    devices_list.setItem(row_position, _DeviceTableRecord.BATTERY_LEVEL_COLUMN_NO, new_device.battery_level)
+    battery_level_table_item = QTableWidgetItem(new_device.battery_level)
+    devices_list.setItem(row_position, _DeviceTableRecord.BATTERY_LEVEL_COLUMN_NO, battery_level_table_item)
     _set_cell_as_immutable(devices_list.item(row_position, _DeviceTableRecord.BATTERY_LEVEL_COLUMN_NO))
 
     return row_position
