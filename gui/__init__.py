@@ -4,10 +4,10 @@ from typing import Dict
 from PySide6.QtCore import QTimer
 from PySide6.QtWidgets import QApplication, QMainWindow
 
-from app_template import Ui_MainWindow
+from gui.app_template import Ui_MainWindow
+from gui.gui_callback_actions import (change_interval_actions,
+                                      table_widget_actions as table_actions)
 from gui.gui_callback_actions.table_widget_actions import BatteryLevelToNotify
-from gui_callback_actions import (change_interval_actions,
-                                  table_widget_actions as table_actions)
 from shared_cache import get_all_registered_devices
 
 
@@ -32,11 +32,20 @@ class Interface(QMainWindow, Ui_MainWindow):
         self.devicesList.cellChanged.connect(self._on_notify_percentage_changed)
 
         table_actions.set_allow_only_last_column_editable(self.devicesList)
-        # self.start_repeating_event()
 
-    def start_repeating_event(self):
         self._timer.timeout.connect(self._sync_shared_cache_with_gui)
+        self.startIntervalButton.clicked.connect(self._start_repeating_event)
+        self.stopIntervalButton.clicked.connect(self._stop_repeating_event)
+
+    def _start_repeating_event(self):
         self._timer.start(_seconds_to_milliseconds(self._retrieve_device_info_interval))
+        self.startIntervalButton.setEnabled(False)
+        self.stopIntervalButton.setEnabled(True)
+
+    def _stop_repeating_event(self):
+        self._timer.stop()
+        self.stopIntervalButton.setEnabled(False)
+        self.startIntervalButton.setEnabled(True)
 
     def _change_retrieval_interval(self):
         new_interval: int = change_interval_actions.get_current_retrieval_interval(self.intervalInput)
@@ -46,7 +55,7 @@ class Interface(QMainWindow, Ui_MainWindow):
             return
 
         self._retrieve_device_info_interval = new_interval
-        self._timer.start(self._retrieve_device_info_interval)
+        self._start_repeating_event()
 
         change_interval_actions.reset_input_container_styles(self.refreshIntervalLabel,
                                                              self._should_show_modifying_input_styles)
@@ -94,7 +103,7 @@ def _is_invalid_retrieval_interval(current_interval: int, new_interval: int) -> 
 
 
 def _seconds_to_milliseconds(seconds: int) -> int:
-    return seconds * 10
+    return seconds * 1000
 
 
 def start_gui():

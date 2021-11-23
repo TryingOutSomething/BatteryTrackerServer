@@ -46,10 +46,12 @@ class Ui_MainWindow(object):
         self.devicesList.horizontalHeader().setDefaultSectionSize(319)
         self.layoutWidget = QWidget(MainWindow)
         self.layoutWidget.setObjectName(u"layoutWidget")
-        self.layoutWidget.setGeometry(QRect(290, 20, 381, 60))
-        self.changeIntervalParentContainer = QVBoxLayout(self.layoutWidget)
+        self.layoutWidget.setGeometry(QRect(180, 20, 601, 62))
+        self.horizontalLayout = QHBoxLayout(self.layoutWidget)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.changeIntervalParentContainer = QVBoxLayout()
         self.changeIntervalParentContainer.setObjectName(u"changeIntervalParentContainer")
-        self.changeIntervalParentContainer.setContentsMargins(0, 0, 0, 0)
         self.changeIntervalContainer = QHBoxLayout()
         self.changeIntervalContainer.setObjectName(u"changeIntervalContainer")
         self.inputContainer = QHBoxLayout()
@@ -68,6 +70,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.intervalInput.sizePolicy().hasHeightForWidth())
         self.intervalInput.setSizePolicy(sizePolicy)
+        self.intervalInput.setMinimumSize(QSize(0, 0))
         self.intervalInput.setCursorPosition(1)
         self.intervalInput.setAlignment(Qt.AlignLeading | Qt.AlignLeft | Qt.AlignVCenter)
 
@@ -94,6 +97,29 @@ class Ui_MainWindow(object):
 
         self.changeIntervalParentContainer.addWidget(self.errorLabel)
 
+        self.horizontalLayout.addLayout(self.changeIntervalParentContainer)
+
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout.addItem(self.horizontalSpacer_2)
+
+        self.startStopButtonContainer = QHBoxLayout()
+        self.startStopButtonContainer.setObjectName(u"startStopButtonContainer")
+        self.startIntervalButton = QPushButton(self.layoutWidget)
+        self.startIntervalButton.setObjectName(u"startIntervalButton")
+        self.startIntervalButton.setMinimumSize(QSize(0, 40))
+
+        self.startStopButtonContainer.addWidget(self.startIntervalButton)
+
+        self.stopIntervalButton = QPushButton(self.layoutWidget)
+        self.stopIntervalButton.setObjectName(u"stopIntervalButton")
+        self.stopIntervalButton.setEnabled(False)
+        self.stopIntervalButton.setMinimumSize(QSize(0, 40))
+
+        self.startStopButtonContainer.addWidget(self.stopIntervalButton)
+
+        self.horizontalLayout.addLayout(self.startStopButtonContainer)
+
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -114,5 +140,7 @@ class Ui_MainWindow(object):
         self.intervalInput.setPlaceholderText("")
         self.changeIntervalButton.setText(QCoreApplication.translate("MainWindow", u"Change Interval", None))
         self.errorLabel.setText("")
+        self.startIntervalButton.setText(QCoreApplication.translate("MainWindow", u"Start", None))
+        self.stopIntervalButton.setText(QCoreApplication.translate("MainWindow", u"Stop", None))
     # retranslateUi
 
