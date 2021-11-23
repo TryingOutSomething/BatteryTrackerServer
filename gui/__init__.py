@@ -88,6 +88,7 @@ class Interface(QMainWindow, Ui_MainWindow):
         self._device_battery_level_to_notify_map[device_id] = BatteryLevelToNotify(int(updated_battery_notify_level))
 
     def _sync_shared_cache_with_gui(self):
+        print('syncing')
         table_actions.sync_shared_cache_with_gui(self.devicesList,
                                                  get_all_registered_devices(),
                                                  self._table_row_id_device_map,

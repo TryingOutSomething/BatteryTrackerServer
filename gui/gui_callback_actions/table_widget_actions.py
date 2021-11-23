@@ -14,8 +14,10 @@ class BatteryLevelToNotify:
 
 
 class _DeviceTableRecord(IntEnum):
-    DEVICE_NAME: int = 0
-    BATTERY_LEVEL_COLUMN_NO: int = 1
+    DEVICE_NAME_COLUMN = 0
+    BATTERY_LEVEL_COLUMN = 1
+    BATTERY_LEVEL_TO_NOTIFY_COLUMN = 2
+    DEFAULT_BATTERY_LEVEL_TO_NOTIFY = 80
 
 
 def set_allow_only_last_column_editable(devices_list: QTableWidget) -> None:
@@ -103,11 +105,11 @@ def _register_new_devices_to_gui(device_battery_level_to_notify_map,
 
 
 def _get_device_battery_level_from_table(devices_list: QTableWidget, row: int) -> str:
-    return devices_list.item(row, _DeviceTableRecord.BATTERY_LEVEL_COLUMN_NO)
+    return devices_list.item(row, _DeviceTableRecord.BATTERY_LEVEL_COLUMN.value)
 
 
 def _update_device_battery_level_in_table(devices_list: QTableWidget, row: int, value: str) -> None:
-    devices_list.item(row, _DeviceTableRecord.BATTERY_LEVEL_COLUMN_NO).setText(value)
+    devices_list.item(row, _DeviceTableRecord.BATTERY_LEVEL_COLUMN.value).setText(value)
 
 
 def _insert_new_registered_device_to_table(devices_list: QTableWidget, new_device: Device) -> int:
@@ -115,12 +117,16 @@ def _insert_new_registered_device_to_table(devices_list: QTableWidget, new_devic
     devices_list.insertRow(row_position)
 
     device_name_table_item = QTableWidgetItem(new_device.device_name)
-    devices_list.setItem(row_position, _DeviceTableRecord.DEVICE_NAME, device_name_table_item)
-    _set_cell_as_immutable(devices_list.item(row_position, _DeviceTableRecord.DEVICE_NAME))
+    devices_list.setItem(row_position, _DeviceTableRecord.DEVICE_NAME_COLUMN.value, device_name_table_item)
+    _set_cell_as_immutable(devices_list.item(row_position, _DeviceTableRecord.DEVICE_NAME_COLUMN.value))
 
     battery_level_table_item = QTableWidgetItem(new_device.battery_level)
-    devices_list.setItem(row_position, _DeviceTableRecord.BATTERY_LEVEL_COLUMN_NO, battery_level_table_item)
-    _set_cell_as_immutable(devices_list.item(row_position, _DeviceTableRecord.BATTERY_LEVEL_COLUMN_NO))
+    devices_list.setItem(row_position, _DeviceTableRecord.BATTERY_LEVEL_COLUMN.value, battery_level_table_item)
+    _set_cell_as_immutable(devices_list.item(row_position, _DeviceTableRecord.BATTERY_LEVEL_COLUMN.value))
+
+    notify_battery_level_table_item = QTableWidgetItem(_DeviceTableRecord.DEFAULT_BATTERY_LEVEL_TO_NOTIFY.value)
+    devices_list.setItem(row_position, _DeviceTableRecord.BATTERY_LEVEL_COLUMN.value, notify_battery_level_table_item)
+    _set_cell_as_immutable(devices_list.item(row_position, _DeviceTableRecord.BATTERY_LEVEL_TO_NOTIFY_COLUMN.value))
 
     return row_position
 
@@ -140,11 +146,13 @@ def notify_user_if_device_battery_level_hits_quota(device_list: QTableWidget,
 
         device_battery_notification: BatteryLevelToNotify = device_battery_level_to_notify_map[device_id]
         device_current_battery_level: int = int(
-            device_list.item(row_index, _DeviceTableRecord.BATTERY_LEVEL_COLUMN_NO))
+            device_list.item(row_index, _DeviceTableRecord.BATTERY_LEVEL_COLUMN.value).text())
 
         if device_current_battery_level < device_battery_notification.battery_level_to_notify \
                 or device_battery_notification.has_notified:
             continue
 
         # notify user
-        ...
+        print(f'notified user!')
+        device_battery_notification.has_notified = True
+        device_battery_level_to_notify_map[device_id] = device_battery_notification
