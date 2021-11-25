@@ -115,8 +115,7 @@ def _insert_new_devices_to_table_and_related_maps(devices_table: QTableWidget,
 
     for device_id, device in new_devices.items():
         inserted_row_id: int = _insert_device_to_table(devices_table, device)
-        battery_level: int = int(device.battery_level)
-        new_battery_notification = BatteryLevelToNotify(battery_level)
+        new_battery_notification = BatteryLevelToNotify(_DEFAULT_BATTERY_LEVEL_TO_NOTIFY)
 
         insert_related_entries(inserted_row_id, device_id, new_battery_notification)
 
