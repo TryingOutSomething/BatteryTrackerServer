@@ -31,9 +31,6 @@ def sync_shared_cache_with_gui(devices_table: QTableWidget,
      evicting_devices_row_id) = _identify_evicting_and_registered_devices(devices_table,
                                                                           sync_table_with_registry_params)
 
-    if len(registered_devices_dict) <= 0 and len(updating_devices_info) <= 0 and len(evicting_devices_row_id) <= 0:
-        return
-
     remove_related_entries: Callable[[int], None] = sync_table_with_registry_params.callbacks.get_callback(
         TableWidgetCallbackIdentifiers.REMOVE_MAP_ENTRIES_ASSOCIATED_TO_TABLE_ROW_ID)
 
