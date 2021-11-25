@@ -9,9 +9,8 @@ class BatteryLevelToNotify:
 
 
 class TableWidgetCallbackIdentifiers(Enum):
-    UPDATE_BATTERY_NOTIFICATION_ENTRY = 0
+    MAP_TABLE_ROW_ID_TO_DEVICE = 0
     REMOVE_MAP_ENTRIES_ASSOCIATED_TO_TABLE_ROW_ID = 1
-    MAP_TABLE_ROW_ID_TO_DEVICE = 2
 
 
 class TableWidgetCallbacks:

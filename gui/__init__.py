@@ -97,17 +97,21 @@ class Interface(QMainWindow, Ui_MainWindow):
         self.errorLabel.setText(error_message)
 
     def _on_notify_percentage_changed(self, row, column):
-        if len(self._table_row_id_device_map) <= 0:
-            return
-
-        updated_battery_notify_level = self.devicesList.item(row, column).text()
-
-        if not _is_invalid_input_text(updated_battery_notify_level):
-            self._display_error_message('Invalid battery level!')
+        if (len(self._table_row_id_device_map) <= 0 or
+                column != table_actions.BATTERY_LEVEL_TO_NOTIFY_COLUMN or
+                row not in self._table_row_id_device_map):
+            # Newly inserted row or empty table
             return
 
         device_id = self._table_row_id_device_map[row]
-        self._device_battery_level_to_notify_map[device_id] = BatteryLevelToNotify(int(updated_battery_notify_level))
+        battery_level_to_notify = self.devicesList.item(row, column).text()
+
+        if _is_invalid_input_text(battery_level_to_notify):
+            self._display_error_message('Invalid battery level!')
+            return
+
+        updated_battery_notification = BatteryLevelToNotify(int(battery_level_to_notify))
+        self._on_update_battery_notification_status(device_id, updated_battery_notification)
 
     def _on_insert_new_device_to_table(self, row_id: int, device_id: str, battery_notification: BatteryLevelToNotify):
         self._table_row_id_device_map[row_id] = device_id
@@ -128,10 +132,6 @@ class Interface(QMainWindow, Ui_MainWindow):
         callback_registry.register_callback(
             TableWidgetCallbackIdentifiers.REMOVE_MAP_ENTRIES_ASSOCIATED_TO_TABLE_ROW_ID,
             self._on_remove_device_from_table)
-
-        callback_registry.register_callback(
-            TableWidgetCallbackIdentifiers.UPDATE_BATTERY_NOTIFICATION_ENTRY,
-            self._on_update_battery_notification_status)
 
         callback_registry.register_callback(
             TableWidgetCallbackIdentifiers.MAP_TABLE_ROW_ID_TO_DEVICE,

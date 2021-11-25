@@ -6,9 +6,9 @@ from PySide6.QtWidgets import QTableWidget, QTableWidgetItem
 from gui.models import SyncTableWithRegistryParams, TableWidgetCallbackIdentifiers, BatteryLevelToNotify
 from register_devices.models.device import Device
 
-_DEVICE_NAME_COLUMN = 0
-_BATTERY_LEVEL_COLUMN = 1
-_BATTERY_LEVEL_TO_NOTIFY_COLUMN = 2
+DEVICE_NAME_COLUMN = 0
+BATTERY_LEVEL_COLUMN = 1
+BATTERY_LEVEL_TO_NOTIFY_COLUMN = 2
 _DEFAULT_BATTERY_LEVEL_TO_NOTIFY = 80
 
 _FilteredDevicesInfo = Tuple[Dict[str, Device], List[int], List[int]]
@@ -85,10 +85,6 @@ def _remove_devices_from_table_and_related_maps(devices_table: QTableWidget,
 def _update_devices_from_table_and_related_maps(devices_table: QTableWidget,
                                                 updating_devices_info: List[int],
                                                 sync_table_with_registry_params: SyncTableWithRegistryParams):
-    update_battery_notification: Callable[[str, BatteryLevelToNotify],
-                                          None] = sync_table_with_registry_params.callbacks.get_callback(
-        TableWidgetCallbackIdentifiers.UPDATE_BATTERY_NOTIFICATION_ENTRY)
-
     devices_registry = sync_table_with_registry_params.devices_registry
     table_id_device_map = sync_table_with_registry_params.table_id_device_map
 
@@ -96,10 +92,8 @@ def _update_devices_from_table_and_related_maps(devices_table: QTableWidget,
         device_id: str = table_id_device_map[row_id]
         device_in_registry: Device = devices_registry[device_id]
         updated_battery_level: str = device_in_registry.battery_level
-        new_battery_notification = BatteryLevelToNotify(int(updated_battery_level))
 
         _update_device_battery_in_table(devices_table, row_id, updated_battery_level)
-        update_battery_notification(device_id, new_battery_notification)
 
 
 def _insert_new_devices_to_table_and_related_maps(devices_table: QTableWidget,
@@ -130,11 +124,11 @@ def _identify_new_devices(registered_devices_dict: Dict[str, Device], devices_re
 
 
 def _get_device_battery_level_from_table(devices_table: QTableWidget, row: int) -> str:
-    return _get_item_from_table(devices_table, row, _BATTERY_LEVEL_COLUMN)
+    return _get_item_from_table(devices_table, row, BATTERY_LEVEL_COLUMN)
 
 
 def _get_item_from_table(devices_table: QTableWidget, row: int, column: int) -> str:
-    return devices_table.item(row, column)
+    return devices_table.item(row, column).text()
 
 
 def _remove_device_from_table(devices_table: QTableWidget, row: int) -> None:
@@ -144,7 +138,7 @@ def _remove_device_from_table(devices_table: QTableWidget, row: int) -> None:
 def _update_device_battery_in_table(devices_table, row: int, item: str):
     new_item = QTableWidgetItem(item)
 
-    _update_device_in_table(devices_table, row, _BATTERY_LEVEL_COLUMN, new_item)
+    _update_device_in_table(devices_table, row, BATTERY_LEVEL_COLUMN, new_item)
 
 
 def _update_device_in_table(devices_table: QTableWidget, row: int, column: int, item: QTableWidgetItem):
@@ -157,11 +151,11 @@ def _insert_device_to_table(devices_table: QTableWidget, device: Device) -> int:
 
     device_name_item = QTableWidgetItem(device.device_name)
     battery_level = QTableWidgetItem(device.battery_level)
-    battery_level_to_notify = QTableWidgetItem(_DEFAULT_BATTERY_LEVEL_TO_NOTIFY)
+    battery_level_to_notify = QTableWidgetItem(str(_DEFAULT_BATTERY_LEVEL_TO_NOTIFY))
 
-    _update_device_in_table(devices_table, row_position, _DEVICE_NAME_COLUMN, device_name_item)
-    _update_device_in_table(devices_table, row_position, _BATTERY_LEVEL_COLUMN, battery_level)
-    _update_device_in_table(devices_table, row_position, _BATTERY_LEVEL_TO_NOTIFY_COLUMN, battery_level_to_notify)
+    _update_device_in_table(devices_table, row_position, DEVICE_NAME_COLUMN, device_name_item)
+    _update_device_in_table(devices_table, row_position, BATTERY_LEVEL_COLUMN, battery_level)
+    _update_device_in_table(devices_table, row_position, BATTERY_LEVEL_TO_NOTIFY_COLUMN, battery_level_to_notify)
 
     return row_position
 
