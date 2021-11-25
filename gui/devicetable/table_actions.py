@@ -3,8 +3,8 @@ from typing import Dict, List, Callable, Tuple
 from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QTableWidget, QTableWidgetItem
 
+from api.registerdevice.models.device import Device
 from gui.models import SyncTableWithRegistryParams, TableWidgetCallbackIdentifiers, BatteryLevelToNotify
-from register_devices.models.device import Device
 
 DEVICE_NAME_COLUMN = 0
 BATTERY_LEVEL_COLUMN = 1

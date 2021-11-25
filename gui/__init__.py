@@ -4,6 +4,7 @@ from typing import Dict
 from PySide6.QtCore import QTimer
 from PySide6.QtWidgets import QApplication, QMainWindow
 
+from database.shared_cache import get_all_registered_devices
 from gui.app_template import Ui_MainWindow
 from gui.devicetable import table_actions
 from gui.models import (BatteryLevelToNotify,
@@ -11,7 +12,6 @@ from gui.models import (BatteryLevelToNotify,
                         TableWidgetCallbackIdentifiers,
                         SyncTableWithRegistryParams)
 from gui.retrievedevices import input_actions
-from shared_cache import get_all_registered_devices
 
 
 class Interface(QMainWindow, Ui_MainWindow):

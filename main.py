@@ -1,39 +1,17 @@
-from typing import List, Dict, Any
+from threading import Thread
 
-from fastapi import FastAPI, Request
-from fastapi.encoders import jsonable_encoder
-from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+import uvicorn
 
-from device_battery_info.endpoints import router as battery_info_router
-from register_devices.endpoints import router as device_router
-from utils.response import build_response, ServiceCode
+from api import get_api_server
+from gui import start_gui
 
-app = FastAPI()
-app.include_router(
-    battery_info_router,
-    prefix='/batteryLevel',
-    tags=['Receive Battery Level']
-)
-
-app.include_router(
-    device_router,
-    prefix='/device',
-    tags=['Register & Unregister Device']
-)
+api_app = get_api_server()
 
 
-@app.exception_handler(RequestValidationError)
-def validation_exception_handler(_: Request, exc: RequestValidationError):
-    error_service_codes_string = compile_error_service_codes(exc.errors())
-
-    return JSONResponse(status_code=422,
-                        content=jsonable_encoder(
-                            build_response(ServiceCode.PARAMETER_VALIDATION_ERROR,
-                                           error_service_codes_string)
-                        ))
+def start_api_server():
+    uvicorn.run('main:api_app')
 
 
-def compile_error_service_codes(list_of_errors: List[Dict[str, Any]]) -> str:
-    error_service_codes_set = {error['msg'] for error in list_of_errors}
-    return ','.join(error_service_codes_set)
+if __name__ == '__main__':
+    Thread(target=start_api_server, daemon=True).start()
+    start_gui()

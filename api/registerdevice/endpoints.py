@@ -1,9 +1,9 @@
 from fastapi import APIRouter, HTTPException
 
-from register_devices.models.device import Device, UnregisterDevice
-from shared_cache import register_device, unregister_device
-from utils.exceptions import KeyExistsError
-from utils.response import ResponsePacket, build_response, ServiceCode
+from api.registerdevice.models.device import Device, UnregisterDevice
+from api.utils.exceptions import KeyExistsError
+from api.utils.response import ResponsePacket, build_response, ServiceCode
+from database.shared_cache import register_device, unregister_device
 
 router = APIRouter()
 

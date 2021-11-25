@@ -1,7 +1,7 @@
 from pydantic import BaseModel, validator
 
-from utils import request_payload_validators as req_validators
-from utils.response import ServiceCode
+from api.utils import request_payload_validators as req_validators
+from api.utils.response import ServiceCode
 
 
 class DeviceBatteryInfo(BaseModel):

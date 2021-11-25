@@ -1,9 +1,9 @@
 import threading
 from typing import Dict, Optional
 
-from device_battery_info.models.battery_level import DeviceBatteryInfo
-from register_devices.models.device import Device, UnregisterDevice
-from utils.exceptions import KeyExistsError
+from api.registerdevice.models.device import Device, UnregisterDevice
+from api.updatedevice.models.battery_level import DeviceBatteryInfo
+from api.utils.exceptions import KeyExistsError
 
 _registered_devices: Dict[str, 'Device'] = {}
 _lock: threading.Lock = threading.Lock()
