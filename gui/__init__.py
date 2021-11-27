@@ -80,8 +80,6 @@ class Interface(QMainWindow, Ui_MainWindow):
         self.intervalInput.textChanged.connect(self._on_text_input_changed)
         self.devicesList.cellChanged.connect(self._on_notify_percentage_changed)
 
-        table_actions.set_allow_only_last_column_editable(self.devicesList)
-
     def _on_text_input_changed(self):
         if self._is_modifying_input:
             return

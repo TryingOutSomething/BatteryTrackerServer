@@ -14,14 +14,12 @@ _DEFAULT_BATTERY_LEVEL_TO_NOTIFY = 80
 _FilteredDevicesInfo = Tuple[Dict[str, Device], List[int], List[int]]
 
 
-def set_allow_only_last_column_editable(devices_list: QTableWidget) -> None:
-    for row in range(devices_list.rowCount()):
-        for col in range(devices_list.columnCount() - 1):
-            _set_cell_as_immutable(devices_list.item(row, col))
+def _apply_table_widget_item_styles(item: QTableWidgetItem):
+    def _set_cell_as_immutable(item: QTableWidgetItem):
+        item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
 
-
-def _set_cell_as_immutable(cell: QTableWidgetItem):
-    cell.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+    _set_cell_as_immutable(item)
+    item.setTextAlignment(Qt.AlignCenter)
 
 
 def sync_shared_cache_with_gui(devices_table: QTableWidget,
@@ -149,9 +147,14 @@ def _insert_device_to_table(devices_table: QTableWidget, device: Device) -> int:
     row_position = devices_table.rowCount()
     devices_table.insertRow(row_position)
 
-    device_name_item = QTableWidgetItem(device.device_name)
-    battery_level = QTableWidgetItem(device.battery_level)
-    battery_level_to_notify = QTableWidgetItem(str(_DEFAULT_BATTERY_LEVEL_TO_NOTIFY))
+    device_name_item: QTableWidgetItem = QTableWidgetItem(device.device_name)
+    _apply_table_widget_item_styles(device_name_item)
+
+    battery_level: QTableWidgetItem = QTableWidgetItem(device.battery_level)
+    _apply_table_widget_item_styles(battery_level)
+
+    battery_level_to_notify: QTableWidgetItem = QTableWidgetItem(str(_DEFAULT_BATTERY_LEVEL_TO_NOTIFY))
+    _apply_table_widget_item_styles(battery_level_to_notify)
 
     _update_device_in_table(devices_table, row_position, DEVICE_NAME_COLUMN, device_name_item)
     _update_device_in_table(devices_table, row_position, BATTERY_LEVEL_COLUMN, battery_level)
