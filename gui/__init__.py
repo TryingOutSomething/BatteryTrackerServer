@@ -12,6 +12,7 @@ from gui.models import (BatteryLevelToNotify,
                         TableWidgetCallbackIdentifiers,
                         SyncTableWithRegistryParams)
 from gui.retrievedevices import input_actions
+from gui.status import status_actions
 
 
 class Interface(QMainWindow, Ui_MainWindow):
@@ -55,7 +56,9 @@ class Interface(QMainWindow, Ui_MainWindow):
         self.stopIntervalButton.clicked.connect(self._stop_repeating_event)
 
     def _sync_shared_cache_with_gui(self):
+        status_actions.set_updating_status(self.statusLabel)
         print('syncing')
+
         args = SyncTableWithRegistryParams(get_all_registered_devices(),
                                            self._table_row_id_device_map,
                                            self._table_widget_callbacks)
@@ -65,14 +68,19 @@ class Interface(QMainWindow, Ui_MainWindow):
                                                                  self._device_battery_level_to_notify_map,
                                                                  self._table_row_id_device_map,
                                                                  self._on_update_battery_notification_status)
+        status_actions.set_start_status(self.statusLabel)
 
     def _start_repeating_event(self):
+        status_actions.set_start_status(self.statusLabel)
         self._timer.start(_seconds_to_milliseconds(self._retrieve_device_info_interval))
+
         self.startIntervalButton.setEnabled(False)
         self.stopIntervalButton.setEnabled(True)
 
     def _stop_repeating_event(self):
         self._timer.stop()
+        status_actions.set_idle_status(self.statusLabel)
+
         self.stopIntervalButton.setEnabled(False)
         self.startIntervalButton.setEnabled(True)
 
