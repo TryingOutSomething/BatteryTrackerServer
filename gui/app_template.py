@@ -21,12 +21,14 @@ class Ui_MainWindow(object):
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(960, 540)
         MainWindow.setBaseSize(QSize(960, 540))
+        font = QFont()
+        MainWindow.setFont(font)
         self.deviceGroup = QGroupBox(MainWindow)
         self.deviceGroup.setObjectName(u"deviceGroup")
         self.deviceGroup.setGeometry(QRect(0, 100, 960, 440))
-        font = QFont()
-        font.setPointSize(10)
-        self.deviceGroup.setFont(font)
+        font1 = QFont()
+        font1.setPointSize(10)
+        self.deviceGroup.setFont(font1)
         self.devicesList = QTableWidget(self.deviceGroup)
         if (self.devicesList.columnCount() < 3):
             self.devicesList.setColumnCount(3)
@@ -47,7 +49,7 @@ class Ui_MainWindow(object):
         self.devicesList.setRowCount(0)
         self.devicesList.setColumnCount(3)
         self.devicesList.horizontalHeader().setCascadingSectionResizes(False)
-        self.devicesList.horizontalHeader().setDefaultSectionSize(319)
+        self.devicesList.horizontalHeader().setDefaultSectionSize(318)
         self.layoutWidget = QWidget(MainWindow)
         self.layoutWidget.setObjectName(u"layoutWidget")
         self.layoutWidget.setGeometry(QRect(100, 20, 761, 68))
@@ -58,19 +60,19 @@ class Ui_MainWindow(object):
         self.statusContainer.setObjectName(u"statusContainer")
         self.statusTitleLabel = QLabel(self.layoutWidget)
         self.statusTitleLabel.setObjectName(u"statusTitleLabel")
-        font1 = QFont()
-        font1.setPointSize(14)
-        self.statusTitleLabel.setFont(font1)
+        font2 = QFont()
+        font2.setPointSize(14)
+        self.statusTitleLabel.setFont(font2)
         self.statusTitleLabel.setAlignment(Qt.AlignCenter)
 
         self.statusContainer.addWidget(self.statusTitleLabel)
 
         self.statusLabel = QLabel(self.layoutWidget)
         self.statusLabel.setObjectName(u"statusLabel")
-        font2 = QFont()
-        font2.setPointSize(10)
-        font2.setBold(True)
-        self.statusLabel.setFont(font2)
+        font3 = QFont()
+        font3.setPointSize(10)
+        font3.setBold(True)
+        self.statusLabel.setFont(font3)
         self.statusLabel.setStyleSheet(u"color: '#e91e63'")
         self.statusLabel.setTextFormat(Qt.RichText)
         self.statusLabel.setAlignment(Qt.AlignCenter)
@@ -133,6 +135,7 @@ class Ui_MainWindow(object):
 
         self.changeIntervalParentContainer.addWidget(self.errorLabel)
 
+
         self.horizontalLayout.addLayout(self.changeIntervalParentContainer)
 
         self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -143,10 +146,20 @@ class Ui_MainWindow(object):
         self.startStopButtonContainer.setObjectName(u"startStopButtonContainer")
         self.startIntervalButton = QPushButton(self.layoutWidget)
         self.startIntervalButton.setObjectName(u"startIntervalButton")
+        self.startIntervalButton.setEnabled(True)
         self.startIntervalButton.setMinimumSize(QSize(100, 60))
-        font3 = QFont()
-        font3.setBold(True)
-        self.startIntervalButton.setFont(font3)
+        font4 = QFont()
+        font4.setBold(True)
+        self.startIntervalButton.setFont(font4)
+        self.startIntervalButton.setStyleSheet(u"QPushButton#startIntervalButton {\n"
+                                               "	color: #ffffff;\n"
+                                               "    background-color: #03a9f4;\n"
+                                               "}\n"
+                                               "\n"
+                                               "QPushButton#startIntervalButton:disabled {\n"
+                                               "    color: #b0b0b0;\n"
+                                               "    background-color: rgba(255, 255, 255, 0);\n"
+                                               "}")
         self.startIntervalButton.setFlat(False)
 
         self.startStopButtonContainer.addWidget(self.startIntervalButton)
@@ -155,7 +168,16 @@ class Ui_MainWindow(object):
         self.stopIntervalButton.setObjectName(u"stopIntervalButton")
         self.stopIntervalButton.setEnabled(False)
         self.stopIntervalButton.setMinimumSize(QSize(100, 60))
-        self.stopIntervalButton.setFont(font3)
+        self.stopIntervalButton.setFont(font4)
+        self.stopIntervalButton.setStyleSheet(u"QPushButton#stopIntervalButton {\n"
+                                              "	color: #ffffff;\n"
+                                              "    background-color: #e91e63;\n"
+                                              "}\n"
+                                              "\n"
+                                              "QPushButton#stopIntervalButton:disabled {\n"
+                                              "    color: #b0b0b0;\n"
+                                              "    background-color: rgba(255, 255, 255, 0);\n"
+                                              "}")
 
         self.startStopButtonContainer.addWidget(self.stopIntervalButton)
 

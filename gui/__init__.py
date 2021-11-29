@@ -28,6 +28,7 @@ class Interface(QMainWindow, Ui_MainWindow):
         self._table_widget_callbacks: TableWidgetCallbacks = self.register_table_widget_callbacks()
 
         self.setupUi(self)
+        self.setStyleSheet(qdarktheme.load_stylesheet())
         self._post_ui_setup_initialisation()
 
     def _post_ui_setup_initialisation(self):
@@ -162,8 +163,6 @@ def _seconds_to_milliseconds(seconds: int) -> int:
 def start_gui():
     app = QApplication()
     interface = Interface()
-    app.setStyleSheet(qdarktheme.load_stylesheet())
-
     interface.show()
     sys.exit(app.exec())
 

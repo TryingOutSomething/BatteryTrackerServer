@@ -16,6 +16,9 @@
     <height>540</height>
    </size>
   </property>
+  <property name="font">
+   <font/>
+  </property>
   <property name="windowTitle">
    <string>Battery Information</string>
   </property>
@@ -73,7 +76,7 @@
      <bool>false</bool>
     </attribute>
     <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>319</number>
+     <number>318</number>
     </attribute>
     <column>
      <property name="text">
@@ -274,6 +277,9 @@
      <layout class="QHBoxLayout" name="startStopButtonContainer">
       <item>
        <widget class="QPushButton" name="startIntervalButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -284,6 +290,18 @@
          <font>
           <bold>true</bold>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton#startIntervalButton {
+          color: #ffffff;
+          background-color: #03a9f4;
+          }
+
+          QPushButton#startIntervalButton:disabled {
+          color: #b0b0b0;
+          background-color: rgba(255, 255, 255, 0);
+          }
+         </string>
         </property>
         <property name="text">
          <string>Start</string>
@@ -311,6 +329,18 @@
          <font>
           <bold>true</bold>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton#stopIntervalButton {
+          color: #ffffff;
+          background-color: #e91e63;
+          }
+
+          QPushButton#stopIntervalButton:disabled {
+          color: #b0b0b0;
+          background-color: rgba(255, 255, 255, 0);
+          }
+         </string>
         </property>
         <property name="text">
          <string>Stop</string>
