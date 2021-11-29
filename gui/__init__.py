@@ -1,6 +1,7 @@
 import sys
 from typing import Dict
 
+import qdarktheme
 from PySide6.QtCore import QTimer
 from PySide6.QtWidgets import QApplication, QMainWindow
 
@@ -161,6 +162,8 @@ def _seconds_to_milliseconds(seconds: int) -> int:
 def start_gui():
     app = QApplication()
     interface = Interface()
+    app.setStyleSheet(qdarktheme.load_stylesheet())
+
     interface.show()
     sys.exit(app.exec())
 

@@ -28,6 +28,11 @@
      <height>440</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
    <property name="title">
     <string>Devices</string>
    </property>
@@ -87,12 +92,12 @@
     </column>
    </widget>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>100</x>
      <y>20</y>
-     <width>706</width>
+     <width>761</width>
      <height>68</height>
     </rect>
    </property>
@@ -271,12 +276,23 @@
        <widget class="QPushButton" name="startIntervalButton">
         <property name="minimumSize">
          <size>
-          <width>0</width>
-          <height>40</height>
+          <width>100</width>
+          <height>60</height>
          </size>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
         </property>
         <property name="text">
          <string>Start</string>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -287,9 +303,14 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>0</width>
-          <height>40</height>
+          <width>100</width>
+          <height>60</height>
          </size>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
         </property>
         <property name="text">
          <string>Stop</string>

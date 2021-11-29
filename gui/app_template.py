@@ -24,6 +24,9 @@ class Ui_MainWindow(object):
         self.deviceGroup = QGroupBox(MainWindow)
         self.deviceGroup.setObjectName(u"deviceGroup")
         self.deviceGroup.setGeometry(QRect(0, 100, 960, 440))
+        font = QFont()
+        font.setPointSize(10)
+        self.deviceGroup.setFont(font)
         self.devicesList = QTableWidget(self.deviceGroup)
         if (self.devicesList.columnCount() < 3):
             self.devicesList.setColumnCount(3)
@@ -45,29 +48,29 @@ class Ui_MainWindow(object):
         self.devicesList.setColumnCount(3)
         self.devicesList.horizontalHeader().setCascadingSectionResizes(False)
         self.devicesList.horizontalHeader().setDefaultSectionSize(319)
-        self.widget = QWidget(MainWindow)
-        self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(130, 20, 706, 68))
-        self.horizontalLayout = QHBoxLayout(self.widget)
+        self.layoutWidget = QWidget(MainWindow)
+        self.layoutWidget.setObjectName(u"layoutWidget")
+        self.layoutWidget.setGeometry(QRect(100, 20, 761, 68))
+        self.horizontalLayout = QHBoxLayout(self.layoutWidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.statusContainer = QVBoxLayout()
         self.statusContainer.setObjectName(u"statusContainer")
-        self.statusTitleLabel = QLabel(self.widget)
+        self.statusTitleLabel = QLabel(self.layoutWidget)
         self.statusTitleLabel.setObjectName(u"statusTitleLabel")
-        font = QFont()
-        font.setPointSize(14)
-        self.statusTitleLabel.setFont(font)
+        font1 = QFont()
+        font1.setPointSize(14)
+        self.statusTitleLabel.setFont(font1)
         self.statusTitleLabel.setAlignment(Qt.AlignCenter)
 
         self.statusContainer.addWidget(self.statusTitleLabel)
 
-        self.statusLabel = QLabel(self.widget)
+        self.statusLabel = QLabel(self.layoutWidget)
         self.statusLabel.setObjectName(u"statusLabel")
-        font1 = QFont()
-        font1.setPointSize(10)
-        font1.setBold(True)
-        self.statusLabel.setFont(font1)
+        font2 = QFont()
+        font2.setPointSize(10)
+        font2.setBold(True)
+        self.statusLabel.setFont(font2)
         self.statusLabel.setStyleSheet(u"color: '#e91e63'")
         self.statusLabel.setTextFormat(Qt.RichText)
         self.statusLabel.setAlignment(Qt.AlignCenter)
@@ -86,14 +89,14 @@ class Ui_MainWindow(object):
         self.changeIntervalContainer.setObjectName(u"changeIntervalContainer")
         self.inputContainer = QHBoxLayout()
         self.inputContainer.setObjectName(u"inputContainer")
-        self.refreshIntervalLabel = QLabel(self.widget)
+        self.refreshIntervalLabel = QLabel(self.layoutWidget)
         self.refreshIntervalLabel.setObjectName(u"refreshIntervalLabel")
         self.refreshIntervalLabel.setTextFormat(Qt.RichText)
         self.refreshIntervalLabel.setWordWrap(True)
 
         self.inputContainer.addWidget(self.refreshIntervalLabel)
 
-        self.intervalInput = QLineEdit(self.widget)
+        self.intervalInput = QLineEdit(self.layoutWidget)
         self.intervalInput.setObjectName(u"intervalInput")
         sizePolicy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -114,7 +117,7 @@ class Ui_MainWindow(object):
 
         self.changeIntervalContainer.addLayout(self.inputContainer)
 
-        self.changeIntervalButton = QPushButton(self.widget)
+        self.changeIntervalButton = QPushButton(self.layoutWidget)
         self.changeIntervalButton.setObjectName(u"changeIntervalButton")
         self.changeIntervalButton.setEnabled(False)
         self.changeIntervalButton.setMinimumSize(QSize(120, 30))
@@ -124,12 +127,11 @@ class Ui_MainWindow(object):
 
         self.changeIntervalParentContainer.addLayout(self.changeIntervalContainer)
 
-        self.errorLabel = QLabel(self.widget)
+        self.errorLabel = QLabel(self.layoutWidget)
         self.errorLabel.setObjectName(u"errorLabel")
         self.errorLabel.setAlignment(Qt.AlignCenter)
 
         self.changeIntervalParentContainer.addWidget(self.errorLabel)
-
 
         self.horizontalLayout.addLayout(self.changeIntervalParentContainer)
 
@@ -139,22 +141,29 @@ class Ui_MainWindow(object):
 
         self.startStopButtonContainer = QHBoxLayout()
         self.startStopButtonContainer.setObjectName(u"startStopButtonContainer")
-        self.startIntervalButton = QPushButton(self.widget)
+        self.startIntervalButton = QPushButton(self.layoutWidget)
         self.startIntervalButton.setObjectName(u"startIntervalButton")
-        self.startIntervalButton.setMinimumSize(QSize(0, 40))
+        self.startIntervalButton.setMinimumSize(QSize(100, 60))
+        font3 = QFont()
+        font3.setBold(True)
+        self.startIntervalButton.setFont(font3)
+        self.startIntervalButton.setFlat(False)
 
         self.startStopButtonContainer.addWidget(self.startIntervalButton)
 
-        self.stopIntervalButton = QPushButton(self.widget)
+        self.stopIntervalButton = QPushButton(self.layoutWidget)
         self.stopIntervalButton.setObjectName(u"stopIntervalButton")
         self.stopIntervalButton.setEnabled(False)
-        self.stopIntervalButton.setMinimumSize(QSize(0, 40))
+        self.stopIntervalButton.setMinimumSize(QSize(100, 60))
+        self.stopIntervalButton.setFont(font3)
 
         self.startStopButtonContainer.addWidget(self.stopIntervalButton)
 
         self.horizontalLayout.addLayout(self.startStopButtonContainer)
 
         self.retranslateUi(MainWindow)
+
+        self.startIntervalButton.setDefault(False)
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
