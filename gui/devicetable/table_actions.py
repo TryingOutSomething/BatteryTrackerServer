@@ -5,6 +5,7 @@ from PySide6.QtWidgets import QTableWidget, QTableWidgetItem
 
 from api.registerdevice.models.device import Device
 from gui.models import SyncTableWithRegistryParams, TableWidgetCallbackIdentifiers, BatteryLevelToNotify
+from gui.notifications import notify_device_charged
 
 DEVICE_NAME_COLUMN = 0
 BATTERY_LEVEL_COLUMN = 1
@@ -125,6 +126,10 @@ def _get_device_battery_level_from_table(devices_table: QTableWidget, row: int) 
     return _get_item_from_table(devices_table, row, BATTERY_LEVEL_COLUMN)
 
 
+def _get_device_name_from_table(devices_table: QTableWidget, row: int) -> str:
+    return _get_item_from_table(devices_table, row, DEVICE_NAME_COLUMN)
+
+
 def _get_item_from_table(devices_table: QTableWidget, row: int, column: int) -> str:
     return devices_table.item(row, column).text()
 
@@ -134,9 +139,10 @@ def _remove_device_from_table(devices_table: QTableWidget, row: int) -> None:
 
 
 def _update_device_battery_in_table(devices_table, row: int, item: str):
-    new_item = QTableWidgetItem(item)
+    updated_item = QTableWidgetItem(item)
+    _apply_table_widget_item_styles(updated_item)
 
-    _update_device_in_table(devices_table, row, BATTERY_LEVEL_COLUMN, new_item)
+    _update_device_in_table(devices_table, row, BATTERY_LEVEL_COLUMN, updated_item)
 
 
 def _update_device_in_table(devices_table: QTableWidget, row: int, column: int, item: QTableWidgetItem):
@@ -183,6 +189,22 @@ def notify_device_battery_level_hits_threshold(devices_table: QTableWidget,
                 device_battery_notification.has_notified):
             continue
 
-        print(f'Notified about device {device_id}, row {i}')
+        device_name: str = _get_device_name_from_table(devices_table, i)
+        _send_message(device_id, device_name)
+
         device_battery_notification.has_notified = True
         on_update_battery_notification_status(device_id, device_battery_notification)
+
+
+def _send_message(device_id, device_name):
+    payload: str = _build_notification_payload(device_name)
+    notify_device_charged(payload)
+
+    print(f'Notified about device {device_id}, {device_name}')
+
+
+def _build_notification_payload(device_name: str) -> str:
+    message: str = f'Device: {device_name} is charged. \n' \
+                   'You can unplug it from the charger now.'
+
+    return message
