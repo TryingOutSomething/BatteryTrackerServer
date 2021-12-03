@@ -1,5 +1,6 @@
 from typing import List, Dict, Any
 
+import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
@@ -39,5 +40,5 @@ def compile_error_service_codes(list_of_errors: List[Dict[str, Any]]) -> str:
     return ','.join(error_service_codes_set)
 
 
-def get_api_server():
-    return _app
+def start_api_server():
+    uvicorn.run('main:api_app')
