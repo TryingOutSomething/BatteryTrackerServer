@@ -3,15 +3,17 @@ from typing import Dict
 
 import qdarktheme
 from PySide6.QtCore import QTimer
+from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QMainWindow
 
 from database.shared_cache import get_all_registered_devices
 from gui.app_template import Ui_MainWindow
+from gui.assets import get_window_icon_path
 from gui.devicetable import table_actions
 from gui.models import (BatteryLevelToNotify,
                         TableWidgetCallbacks,
                         TableWidgetCallbackIdentifiers,
-                        SyncTableWithRegistryParams)
+                        SyncTableWithRegistryParams, BatteryNotificationParams)
 from gui.retrievedevices import input_actions
 from gui.status import status_actions
 
@@ -28,13 +30,19 @@ class Interface(QMainWindow, Ui_MainWindow):
         self._table_widget_callbacks: TableWidgetCallbacks = self.register_table_widget_callbacks()
 
         self.setupUi(self)
-        self.setStyleSheet(qdarktheme.load_stylesheet())
         self._post_ui_setup_initialisation()
 
     def _post_ui_setup_initialisation(self):
+        self._apply_global_styles()
+
         self._setup_change_interval_container_actions()
         self._setup_start_stop_refresh_interval_actions()
         self._setup_device_table_actions()
+
+    def _apply_global_styles(self):
+        window_icon: QIcon = QIcon(get_window_icon_path())
+        self.setWindowIcon(window_icon)
+        self.setStyleSheet(qdarktheme.load_stylesheet())
 
     def _setup_change_interval_container_actions(self):
         self.changeIntervalButton.clicked.connect(self._change_retrieval_interval)
@@ -61,15 +69,19 @@ class Interface(QMainWindow, Ui_MainWindow):
         status_actions.set_updating_status(self.statusLabel)
         print('syncing')
 
-        args = SyncTableWithRegistryParams(get_all_registered_devices(),
-                                           self._table_row_id_device_map,
-                                           self._table_widget_callbacks)
+        sync_table_args = SyncTableWithRegistryParams(get_all_registered_devices(),
+                                                      self._table_row_id_device_map,
+                                                      self._table_widget_callbacks)
 
-        table_actions.sync_shared_cache_with_gui(self.devicesList, args)
+        table_actions.sync_shared_cache_with_gui(self.devicesList, sync_table_args)
+
+        notify_device_args = BatteryNotificationParams(self._device_battery_level_to_notify_map,
+                                                       self._table_row_id_device_map,
+                                                       self._on_update_battery_notification_status,
+                                                       self.window().windowTitle())
+
         table_actions.notify_device_battery_level_hits_threshold(self.devicesList,
-                                                                 self._device_battery_level_to_notify_map,
-                                                                 self._table_row_id_device_map,
-                                                                 self._on_update_battery_notification_status)
+                                                                 notify_device_args)
         status_actions.set_start_status(self.statusLabel)
 
     def _start_repeating_event(self):

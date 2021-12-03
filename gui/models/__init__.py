@@ -35,3 +35,16 @@ class SyncTableWithRegistryParams:
         self.devices_registry: dict = devices_registry
         self.table_id_device_map: dict = table_id_device_map
         self.callbacks: TableWidgetCallbacks = callbacks
+
+
+class BatteryNotificationParams:
+    def __init__(self,
+                 device_battery_level_to_notify_map: Dict[str, BatteryLevelToNotify],
+                 table_row_id_device_map: Dict[int, str],
+                 on_update_battery_notification_status: Callable[[str, BatteryLevelToNotify], None],
+                 interface_title: str):
+        self.device_battery_level_to_notify_map: Dict[str, BatteryLevelToNotify] = device_battery_level_to_notify_map
+        self.table_row_id_device_map: Dict[int, str] = table_row_id_device_map
+        self.on_update_battery_notification_status: Callable[
+            [str, BatteryLevelToNotify], None] = on_update_battery_notification_status
+        self.interface_title = interface_title

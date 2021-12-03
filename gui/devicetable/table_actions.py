@@ -4,7 +4,10 @@ from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QTableWidget, QTableWidgetItem
 
 from api.registerdevice.models.device import Device
-from gui.models import SyncTableWithRegistryParams, TableWidgetCallbackIdentifiers, BatteryLevelToNotify
+from gui.models import (SyncTableWithRegistryParams,
+                        TableWidgetCallbackIdentifiers,
+                        BatteryLevelToNotify,
+                        BatteryNotificationParams)
 from gui.notifications import notify_device_charged
 
 DEVICE_NAME_COLUMN = 0
@@ -108,9 +111,9 @@ def _insert_new_devices_to_table_and_related_maps(devices_table: QTableWidget,
 
     for device_id, device in new_devices.items():
         inserted_row_id: int = _insert_device_to_table(devices_table, device)
-        new_battery_notification = BatteryLevelToNotify(_DEFAULT_BATTERY_LEVEL_TO_NOTIFY)
+        new_battery_notification_status = BatteryLevelToNotify(_DEFAULT_BATTERY_LEVEL_TO_NOTIFY)
 
-        insert_related_entries(inserted_row_id, device_id, new_battery_notification)
+        insert_related_entries(inserted_row_id, device_id, new_battery_notification_status)
 
 
 def _identify_new_devices(registered_devices_dict: Dict[str, Device], devices_registry: Dict[str, Device]) -> dict:
@@ -170,35 +173,33 @@ def _insert_device_to_table(devices_table: QTableWidget, device: Device) -> int:
 
 
 def notify_device_battery_level_hits_threshold(devices_table: QTableWidget,
-                                               device_battery_level_to_notify_map: Dict[str, BatteryLevelToNotify],
-                                               table_row_id_device_map: Dict[int, str],
-                                               on_update_battery_notification_status: Callable[
-                                                   [str, BatteryLevelToNotify], None]):
+                                               battery_notification_params: BatteryNotificationParams):
     row_count: int = devices_table.rowCount()
 
     if row_count <= 0:
         return
 
     for i in range(row_count):
-        device_id: str = table_row_id_device_map[i]
-        device_battery_notification: BatteryLevelToNotify = device_battery_level_to_notify_map[device_id]
+        device_id: str = battery_notification_params.table_row_id_device_map[i]
+        device_battery_notification_status: BatteryLevelToNotify = \
+            battery_notification_params.device_battery_level_to_notify_map[device_id]
 
         device_battery_level_in_table: int = int(_get_device_battery_level_from_table(devices_table, i))
 
-        if (device_battery_level_in_table < device_battery_notification.battery_level_to_notify or
-                device_battery_notification.has_notified):
+        if (device_battery_level_in_table < device_battery_notification_status.battery_level_to_notify or
+                device_battery_notification_status.has_notified):
             continue
 
         device_name: str = _get_device_name_from_table(devices_table, i)
-        _send_message(device_id, device_name)
+        _send_message(device_id, device_name, battery_notification_params.interface_title)
 
-        device_battery_notification.has_notified = True
-        on_update_battery_notification_status(device_id, device_battery_notification)
+        device_battery_notification_status.has_notified = True
+        battery_notification_params.on_update_battery_notification_status(device_id, device_battery_notification_status)
 
 
-def _send_message(device_id, device_name):
+def _send_message(device_id: str, device_name: str, interface_title: str):
     payload: str = _build_notification_payload(device_name)
-    notify_device_charged(payload)
+    notify_device_charged(payload, interface_title)
 
     print(f'Notified about device {device_id}, {device_name}')
 
