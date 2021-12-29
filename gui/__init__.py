@@ -19,13 +19,16 @@ from gui.status import status_actions
 
 
 class Interface(QMainWindow, Ui_MainWindow):
-    def __init__(self, parent=None):
+    def __init__(self, server_ip, server_port, parent=None):
         super(Interface, self).__init__(parent)
 
         self._retrieve_device_info_interval: int = 0
         self._is_modifying_input: bool = False
         self._device_battery_level_to_notify_map: Dict[str, BatteryLevelToNotify] = {}
         self._table_row_id_device_map: Dict[int, str] = {}
+        self._server_ip = server_ip
+        self._server_port = server_port
+
         self._timer: QTimer = QTimer(self)
         self._table_widget_callbacks: TableWidgetCallbacks = self.register_table_widget_callbacks()
 
@@ -33,6 +36,7 @@ class Interface(QMainWindow, Ui_MainWindow):
         self._post_ui_setup_initialisation()
 
     def _post_ui_setup_initialisation(self):
+        self.setWindowTitle(f'Battery Information | {self._server_ip}:{self._server_port}')
         self._apply_global_styles()
 
         self._setup_change_interval_container_actions()
@@ -172,12 +176,8 @@ def _seconds_to_milliseconds(seconds: int) -> int:
     return seconds * 1000
 
 
-def start_gui():
+def start_gui(server_ip, server_port):
     app = QApplication()
-    interface = Interface()
+    interface = Interface(server_ip, server_port)
     interface.show()
     sys.exit(app.exec())
-
-
-if __name__ == '__main__':
-    start_gui()
