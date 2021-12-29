@@ -7,15 +7,15 @@ from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QMainWindow
 
 from database.shared_cache import get_all_registered_devices
+from gui.actions.devicetable import table_actions
+from gui.actions.models import (BatteryLevelToNotify,
+                                TableWidgetCallbacks,
+                                TableWidgetCallbackIdentifiers,
+                                SyncTableWithRegistryParams, BatteryNotificationParams)
+from gui.actions.retrievedevices import input_actions
+from gui.actions.status import status_actions
 from gui.app_template import Ui_MainWindow
 from gui.assets import get_window_icon_path
-from gui.devicetable import table_actions
-from gui.models import (BatteryLevelToNotify,
-                        TableWidgetCallbacks,
-                        TableWidgetCallbackIdentifiers,
-                        SyncTableWithRegistryParams, BatteryNotificationParams)
-from gui.retrievedevices import input_actions
-from gui.status import status_actions
 
 
 class Interface(QMainWindow, Ui_MainWindow):

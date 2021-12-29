@@ -4,10 +4,10 @@ from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QTableWidget, QTableWidgetItem
 
 from api.registerdevice.models.device import Device
-from gui.models import (SyncTableWithRegistryParams,
-                        TableWidgetCallbackIdentifiers,
-                        BatteryLevelToNotify,
-                        BatteryNotificationParams)
+from gui.actions.models import (SyncTableWithRegistryParams,
+                                TableWidgetCallbackIdentifiers,
+                                BatteryLevelToNotify,
+                                BatteryNotificationParams)
 from gui.notifications import notify_device_charged
 
 DEVICE_NAME_COLUMN = 0
