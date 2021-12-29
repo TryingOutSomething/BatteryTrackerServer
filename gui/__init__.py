@@ -1,4 +1,5 @@
 import sys
+from datetime import datetime
 from typing import Dict
 
 import qdarktheme
@@ -71,7 +72,7 @@ class Interface(QMainWindow, Ui_MainWindow):
 
     def _sync_shared_cache_with_gui(self):
         status_actions.set_updating_status(self.statusLabel)
-        print('syncing')
+        print(f'[GUI]: {_get_current_timestamp()} - SYNCING DATABASE...')
 
         sync_table_args = SyncTableWithRegistryParams(get_all_registered_devices(),
                                                       self._table_row_id_device_map,
@@ -174,6 +175,12 @@ def _is_invalid_input_text(text: str) -> bool:
 
 def _seconds_to_milliseconds(seconds: int) -> int:
     return seconds * 1000
+
+
+def _get_current_timestamp() -> str:
+    now = datetime.now()
+
+    return datetime.strftime(now, '%d/%m/%Y %H:%M:%S:%f')
 
 
 def start_gui(server_ip, server_port):
