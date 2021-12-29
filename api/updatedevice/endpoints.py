@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 
+from api.exceptions import KeyExistsError
 from api.updatedevice.models.battery_level import DeviceBatteryInfo
-from api.utils.exceptions import KeyExistsError
 from api.utils.response import ResponsePacket, build_response, ServiceCode
 from database.shared_cache import update_device_battery_info
 

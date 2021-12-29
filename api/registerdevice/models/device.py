@@ -1,6 +1,6 @@
 from pydantic import BaseModel, validator
 
-from api.utils import request_payload_validators as req_validators
+from api import payload_validators as req_validators
 from api.utils.response import ServiceCode
 
 

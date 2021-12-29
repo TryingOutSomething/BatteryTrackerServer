@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 
+from api.exceptions import KeyExistsError
 from api.registerdevice.models.device import Device, UnregisterDevice
-from api.utils.exceptions import KeyExistsError
 from api.utils.response import ResponsePacket, build_response, ServiceCode
 from database.shared_cache import register_device, unregister_device
 
