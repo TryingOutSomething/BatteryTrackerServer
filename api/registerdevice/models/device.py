@@ -1,7 +1,4 @@
-from pydantic import BaseModel, validator
-
-from api import payload_validators as req_validators
-from api.utils.response import ServiceCode
+from pydantic import BaseModel
 
 
 class Device(BaseModel):
@@ -16,22 +13,6 @@ class Device(BaseModel):
         return self.device_id == other.device_id and \
                self.device_name == other.device_name and \
                self.battery_level == other.battery_level
-
-    @validator('*')
-    def empty_fields(cls, v):
-        if req_validators.is_empty_field(v):
-            raise ValueError(ServiceCode.FIELD_EMPTY.value)
-
-        return v
-
-    @validator('battery_level')
-    def is_valid_battery_level(cls, v):
-        is_valid_value = req_validators.is_within_valid_battery_range(v)
-
-        if not is_valid_value:
-            raise ValueError(ServiceCode.INVALID_BATTERY_RANGE.value)
-
-        return v
 
 
 class UnregisterDevice(BaseModel):
