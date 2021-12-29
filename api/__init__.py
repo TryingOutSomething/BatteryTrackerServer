@@ -19,5 +19,5 @@ _app.include_router(
 )
 
 
-def start_api_server():
-    uvicorn.run('main:api_app')
+def start_api_server(host='0.0.0.0', port=8000):
+    uvicorn.run('api:_app', host=host, port=port, log_level='info')
