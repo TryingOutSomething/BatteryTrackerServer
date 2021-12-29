@@ -8,7 +8,7 @@ from database.shared_cache import update_device_battery_info
 router = APIRouter()
 
 
-@router.put('/battery_level_update', response_model=ResponsePacket)
+@router.put('/update', response_model=ResponsePacket)
 def update_battery_info(battery_info: DeviceBatteryInfo):
     try:
         update_device_battery_info(battery_info)

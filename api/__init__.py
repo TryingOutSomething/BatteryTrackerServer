@@ -13,7 +13,7 @@ from .utils.response import build_response, ServiceCode
 _app = FastAPI()
 _app.include_router(
     battery_info_router,
-    prefix='/batteryLevel',
+    prefix='/battery_level',
     tags=['Receive Battery Level']
 )
 
