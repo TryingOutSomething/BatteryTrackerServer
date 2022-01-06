@@ -42,3 +42,8 @@ def unregister_device_service(device: UnregisterDevice):
                                                   'Device Does Not Exists!').dict())
 
     return build_response(ServiceCode.UNREGISTER_SUCCESS)
+
+
+@router.get('/test')
+def unregister_device_service():
+    return build_response(ServiceCode.REGISTER_SUCCESS)
