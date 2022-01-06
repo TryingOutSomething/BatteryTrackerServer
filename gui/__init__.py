@@ -58,12 +58,13 @@ class Interface(QMainWindow, Ui_MainWindow):
         new_interval: int = input_actions.get_current_retrieval_interval(self.intervalInput, _is_invalid_input_text)
 
         if _is_invalid_retrieval_interval(self._retrieve_device_info_interval, new_interval):
-            self._display_error_message('same or invalid value')
+            self._display_error_message('Same or invalid value')
             return
 
         self._retrieve_device_info_interval = new_interval
         input_actions.reset_modified_input_styles(self.refreshIntervalLabel,
                                                   self._should_show_modifying_input_styles)
+        self._display_error_message('')
 
     def _setup_start_stop_refresh_interval_actions(self):
         self._timer.timeout.connect(self._sync_shared_cache_with_gui)
@@ -137,6 +138,7 @@ class Interface(QMainWindow, Ui_MainWindow):
 
         updated_battery_notification = BatteryLevelToNotify(int(battery_level_to_notify))
         self._on_update_battery_notification_status(device_id, updated_battery_notification)
+        self._display_error_message('')
 
     def _on_insert_new_device_to_table(self, row_id: int, device_id: str, battery_notification: BatteryLevelToNotify):
         self._table_row_id_device_map[row_id] = device_id
