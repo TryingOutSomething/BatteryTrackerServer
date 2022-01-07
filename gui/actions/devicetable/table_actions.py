@@ -201,7 +201,7 @@ def _send_message(device_id: str, device_name: str, interface_title: str):
     payload: str = _build_notification_payload(device_name)
     notify_device_charged(payload, interface_title)
 
-    print(f'Notified about device {device_id}, {device_name}')
+    print(f'GUI: \tNotified about device {device_id}, {device_name}')
 
 
 def _build_notification_payload(device_name: str) -> str:

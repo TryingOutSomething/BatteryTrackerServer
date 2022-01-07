@@ -11,7 +11,7 @@ if __name__ == '__main__':
     server_port = 8000
 
     public_url = ngrok.connect(server_port).public_url
-    print(f'[NGROK]: Local endpoint proxied to endpoint: {public_url} successfully')
+    print(f'NGROK: \tLocal endpoint proxied to endpoint: {public_url} successfully')
 
     Thread(target=start_api_server, daemon=True, args=('0.0.0.0', server_port,)).start()
     start_gui(public_url, server_port)
