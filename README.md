@@ -56,7 +56,7 @@ Start the app
 ```
 
 | Parameter       | Type     | Description                                                                                            |
-|:----------------|:---------|:-------------------------------------------------------------------------------------------------------|
+| :-------------- | :------- | :----------------------------------------------------------------------------------------------------- |
 | `device_id`     | `string` | **Required**. Unique id to identify your device                                                        |
 | `device_name`   | `string` | **Required**. Name of your device                                                                      |
 | `battery_level` | `string` | **Required** **Required**. Your device's current battery level. (Only supply the **numerical values**) |
@@ -68,7 +68,7 @@ Start the app
 ```
 
 | Parameter   | Type     | Description                                               |
-|:------------|:---------|:----------------------------------------------------------|
+| :---------- | :------- | :-------------------------------------------------------- |
 | `device_id` | `string` | **Required**. Unique id to identify your device in memory |
 
 #### Send Battery Level
@@ -78,7 +78,7 @@ Start the app
 ```
 
 | Parameter               | Type     | Description                                                                               |
-|:------------------------|:---------|:------------------------------------------------------------------------------------------|
+| :---------------------- | :------- | :---------------------------------------------------------------------------------------- |
 | `device_id`             | `string` | **Required**. Unique id to identify your device                                           |
 | `current_battery_level` | `string` | **Required**. Your device's current battery level. (Only supply the **numerical values**) |
 
@@ -88,7 +88,7 @@ The response from the server contains the following parameters to provide the cl
 request:
 
 | Parameter      | Type     | Description                           |
-|:---------------|:---------|:--------------------------------------|
+| :------------- | :------- | :------------------------------------ |
 | `service_code` | `string` | The status of the requested operation |
 | `message`      | `string` | Error messages if any                 |
 
@@ -116,6 +116,13 @@ when my smartphone is done charging.
 
 #### How do I customise the GUI?
 
-The GUI was built using PySide6. After installing the package, run `pyside6-designer` in the terminal to customise the GUI. 
+The GUI was built using PySide6. After installing the package, run `pyside6-designer` in the terminal to customise the GUI.
 
 Save the changes to `gui/design_template` directory as `interface_design.ui` and run the `ui_to_python_converter.py` to implement the changes to the GUI.
+
+## Attributions
+
+Icons used to create the logo:
+
+- [Made by Premium](https://www.flaticon.com/authors/made-by-made-premium) from [FlatIcons](https://www.flaticons.com)
+- [DinosoftLabs](https://www.flaticon.com/authors/dinosoftlabs) from [FlatIcons](https://www.flaticons.com)
