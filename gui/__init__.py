@@ -20,15 +20,14 @@ from gui.assets import get_window_icon_path
 
 
 class Interface(QMainWindow, Ui_MainWindow):
-    def __init__(self, server_ip, server_port, parent=None):
+    def __init__(self, server_address, parent=None):
         super(Interface, self).__init__(parent)
 
         self._retrieve_device_info_interval: int = 0
         self._is_modifying_input: bool = False
         self._device_battery_level_to_notify_map: Dict[str, BatteryLevelToNotify] = {}
         self._table_row_id_device_map: Dict[int, str] = {}
-        self._server_ip = server_ip
-        self._server_port = server_port
+        self._server_address = server_address
 
         self._timer: QTimer = QTimer(self)
         self._table_widget_callbacks: TableWidgetCallbacks = self.register_table_widget_callbacks()
@@ -37,7 +36,7 @@ class Interface(QMainWindow, Ui_MainWindow):
         self._post_ui_setup_initialisation()
 
     def _post_ui_setup_initialisation(self):
-        self.setWindowTitle(f'Battery Information | {self._server_ip}:{self._server_port}')
+        self.setWindowTitle(f'Battery Information | {self._server_address}')
         self._apply_global_styles()
 
         self._setup_change_interval_container_actions()
@@ -185,8 +184,8 @@ def _get_current_timestamp() -> str:
     return datetime.strftime(now, '%d/%m/%Y %H:%M:%S:%f')
 
 
-def start_gui(server_ip, server_port):
+def start_gui(server_address):
     app = QApplication()
-    interface = Interface(server_ip, server_port)
+    interface = Interface(server_address)
     interface.show()
     sys.exit(app.exec())
