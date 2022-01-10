@@ -10,10 +10,10 @@ device authentication.
 ## Features
 
 - Receive device's information (`device id`, `name` & `battery level`) via REST API
-- Monitor device's battery level via a GUI interface periodically _(default: two minutes)_
+- Monitor device's battery level via a GUI interface periodically _(default: four minutes)_
 - Notify you to unplug your charged device when the battery level reaches a specific level _(default: 80%)_.
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](assets/gui_with_annotations.png)
 
 ## Installation
 
