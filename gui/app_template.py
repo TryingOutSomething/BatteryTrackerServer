@@ -79,6 +79,7 @@ class Ui_MainWindow(object):
 
         self.statusContainer.addWidget(self.statusLabel)
 
+
         self.horizontalLayout.addLayout(self.statusContainer)
 
         self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -107,7 +108,7 @@ class Ui_MainWindow(object):
         self.intervalInput.setSizePolicy(sizePolicy)
         self.intervalInput.setMinimumSize(QSize(0, 0))
         self.intervalInput.setMaximumSize(QSize(70, 16777215))
-        self.intervalInput.setCursorPosition(1)
+        self.intervalInput.setCursorPosition(3)
         self.intervalInput.setAlignment(Qt.AlignCenter)
 
         self.inputContainer.addWidget(self.intervalInput)
@@ -152,14 +153,15 @@ class Ui_MainWindow(object):
         font4.setBold(True)
         self.startIntervalButton.setFont(font4)
         self.startIntervalButton.setStyleSheet(u"QPushButton#startIntervalButton {\n"
-                                               "	color: #ffffff;\n"
-                                               "    background-color: #03a9f4;\n"
-                                               "}\n"
+                                               "          color: #ffffff;\n"
+                                               "          background-color: #03a9f4;\n"
+                                               "          }\n"
                                                "\n"
-                                               "QPushButton#startIntervalButton:disabled {\n"
-                                               "    color: #b0b0b0;\n"
-                                               "    background-color: rgba(255, 255, 255, 0);\n"
-                                               "}")
+                                               "          QPushButton#startIntervalButton:disabled {\n"
+                                               "          color: #b0b0b0;\n"
+                                               "          background-color: rgba(255, 255, 255, 0);\n"
+                                               "          }\n"
+                                               "         ")
         self.startIntervalButton.setFlat(False)
 
         self.startStopButtonContainer.addWidget(self.startIntervalButton)
@@ -170,14 +172,15 @@ class Ui_MainWindow(object):
         self.stopIntervalButton.setMinimumSize(QSize(100, 60))
         self.stopIntervalButton.setFont(font4)
         self.stopIntervalButton.setStyleSheet(u"QPushButton#stopIntervalButton {\n"
-                                              "	color: #ffffff;\n"
-                                              "    background-color: #e91e63;\n"
-                                              "}\n"
+                                              "          color: #ffffff;\n"
+                                              "          background-color: #e91e63;\n"
+                                              "          }\n"
                                               "\n"
-                                              "QPushButton#stopIntervalButton:disabled {\n"
-                                              "    color: #b0b0b0;\n"
-                                              "    background-color: rgba(255, 255, 255, 0);\n"
-                                              "}")
+                                              "          QPushButton#stopIntervalButton:disabled {\n"
+                                              "          color: #b0b0b0;\n"
+                                              "          background-color: rgba(255, 255, 255, 0);\n"
+                                              "          }\n"
+                                              "         ")
 
         self.startStopButtonContainer.addWidget(self.stopIntervalButton)
 
@@ -203,7 +206,7 @@ class Ui_MainWindow(object):
         self.statusLabel.setText(QCoreApplication.translate("MainWindow", u"IDLE", None))
         self.refreshIntervalLabel.setText(
             QCoreApplication.translate("MainWindow", u"Refresh Interval (in seconds):", None))
-        self.intervalInput.setText(QCoreApplication.translate("MainWindow", u"3", None))
+        self.intervalInput.setText(QCoreApplication.translate("MainWindow", u"240", None))
         self.intervalInput.setPlaceholderText("")
         self.changeIntervalButton.setText(QCoreApplication.translate("MainWindow", u"Change Interval", None))
         self.errorLabel.setText("")

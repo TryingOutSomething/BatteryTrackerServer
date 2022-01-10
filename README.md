@@ -13,8 +13,6 @@ device authentication.
 - Monitor device's battery level via a GUI interface periodically _(default: two minutes)_
 - Notify you to unplug your charged device when the battery level reaches a specific level _(default: 80%)_.
 
-## Screenshots
-
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
 ## Installation
