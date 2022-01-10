@@ -22,19 +22,25 @@ device authentication.
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/TryingOutSomething/BatteryTrackerServer.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd android_battery_tracker
+  cd BatteryTrackerServer
 ```
 
-Install the server with pip
+Install dependencies with pip
 
 ```bash
   pip install -r requirements.txt
+```
+
+Rename the dotenv file, `.env_sample` to `.env` with the following key value pair:
+
+```
+USE_NGROK=True # True if using Ngrok to proxy the ip address. Else, False
 ```
 
 Start the app
