@@ -96,6 +96,8 @@ class Interface(QMainWindow, Ui_MainWindow):
         self.startIntervalButton.setEnabled(False)
         self.stopIntervalButton.setEnabled(True)
 
+        self._sync_shared_cache_with_gui()
+
     def _stop_repeating_event(self):
         self._timer.stop()
         status_actions.set_idle_status(self.statusLabel)
