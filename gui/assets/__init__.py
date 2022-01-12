@@ -1,6 +1,7 @@
-from os.path import abspath, join
+from os.path import abspath, dirname, join
 
-_BASE_ASSET_PATH = abspath('./gui/assets/images/')
+_CURRENT_DIRECTORY_PATH = dirname(abspath(__file__))
+_BASE_ASSET_PATH = join(_CURRENT_DIRECTORY_PATH, 'images')
 _WINDOW_ICON = 'favicon.png'
 _TOAST_ICON = 'toasticon.ico'
 
